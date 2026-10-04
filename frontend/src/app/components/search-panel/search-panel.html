@@ -1,0 +1,91 @@
+<form class="panel" (ngSubmit)="submit()">
+  <h2>Recherche</h2>
+
+  <div class="field">
+    <span class="title">Origines</span>
+    <div class="chips">
+      @for (o of origins(); track o) {
+        <span class="chip">
+          {{ o }} <button type="button" (click)="remove(origins, o)" aria-label="Retirer">×</button>
+        </span>
+      }
+    </div>
+    <div class="row">
+      <input name="origin" aria-label="Ajouter une origine" list="stations" [(ngModel)]="originInput" (input)="suggest(originInput)"
+             (keydown.enter)="$event.preventDefault(); addOrigin()" placeholder="Ajouter une ville…" />
+      <button type="button" (click)="addOrigin()" aria-label="Ajouter l'origine">+</button>
+    </div>
+  </div>
+
+  <button type="button" class="swap" (click)="swap()" [disabled]="!origins().length || !destinations().length"
+          title="Les origines deviennent les destinations et inversement">
+    ⇅ Inverser origines / destinations
+  </button>
+
+  <div class="field">
+    <span class="title">Destinations</span>
+    <div class="chips">
+      @for (d of destinations(); track d) {
+        <span class="chip dest">
+          {{ d }} <button type="button" (click)="remove(destinations, d)" aria-label="Retirer">×</button>
+        </span>
+      }
+    </div>
+    <div class="row">
+      <input name="destination" aria-label="Ajouter une destination" list="stations" [(ngModel)]="destInput"
+             (input)="suggest(destInput)" (keydown.enter)="$event.preventDefault(); addDestination()"
+             placeholder="Ajouter une ville…" />
+      <button type="button" (click)="addDestination()" aria-label="Ajouter la destination">+</button>
+    </div>
+  </div>
+
+  <div class="field">
+    <span class="title">Correspondances</span>
+    <small>Par défaut : {{ defaultHubs.join(', ') }}</small>
+    <div class="chips">
+      @for (h of hubs(); track h) {
+        <span class="chip hub">{{ h }} <button type="button" (click)="remove(hubs, h)" aria-label="Retirer">×</button></span>
+      }
+    </div>
+    <div class="row">
+      <input name="hub" aria-label="Ajouter une correspondance" list="stations" [(ngModel)]="hubInput" (input)="suggest(hubInput)"
+             (keydown.enter)="$event.preventDefault(); addHub()" placeholder="Ex. Nancy, Lyon…" />
+      <button type="button" (click)="addHub()" aria-label="Ajouter la correspondance">+</button>
+    </div>
+  </div>
+
+  <datalist id="stations">
+    @for (s of suggestions(); track s) { <option [value]="s"></option> }
+  </datalist>
+
+  <div class="row">
+    <label>Du <input type="date" name="from" [(ngModel)]="dateFrom" required /></label>
+    <label>Au <input type="date" name="to" [(ngModel)]="dateTo" required /></label>
+  </div>
+
+  <label class="check">
+    <input type="checkbox" name="overnight" [(ngModel)]="overnight" />
+    Escale / nuitée (départ la veille au soir, nuit sur place)
+  </label>
+
+  <label>Nombre max de trains
+    <select name="legs" [(ngModel)]="maxLegs">
+      <option [ngValue]="1">1 (direct)</option>
+      <option [ngValue]="2">2</option>
+      <option [ngValue]="3">3</option>
+      <option [ngValue]="4">4</option>
+    </select>
+  </label>
+
+  <button class="primary" type="submit" [disabled]="(state.loading$ | async) || !origins().length || !destinations().length">
+    {{ (state.loading$ | async) ? 'Recherche…' : 'Rechercher' }}
+  </button>
+
+  @if (state.error$ | async; as err) {
+    <p class="error">{{ err }}
+      <button type="button" (click)="state.retry()">Réessayer</button>
+    </p>
+  }
+</form>
+
+<app-history (pick)="apply($event)" />

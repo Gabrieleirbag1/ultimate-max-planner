@@ -1,0 +1,20 @@
+.panel { display: flex; flex-direction: column; gap: 14px; }
+h2 { margin: 0; font-size: 1.1rem; }
+label, .field { display: flex; flex-direction: column; gap: 4px; font-size: .85rem; font-weight: 600; }
+label.check { flex-direction: row; align-items: center; gap: 8px; font-weight: 400; }
+.title { font-size: .85rem; font-weight: 600; }
+.swap { align-self: flex-start; background: none; border: 1px dashed #9ca3af; border-radius: 6px; padding: 4px 10px; font-size: .8rem; cursor: pointer; }
+.swap:disabled { opacity: .45; cursor: default; }
+small { font-weight: 400; color: #6b7280; }
+input, select { padding: 8px; border: 1px solid #d1d5db; border-radius: 6px; font: inherit; width: 100%; box-sizing: border-box; }
+input[type=checkbox] { width: auto; }
+.row { display: flex; gap: 6px; }
+.row button { padding: 0 12px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { background: #1e3a8a; color: #fff; border-radius: 999px; padding: 3px 10px; font-size: .8rem; display: inline-flex; gap: 6px; align-items: center; }
+.chip.dest { background: #0f766e; }
+.chip.hub { background: #475569; }
+.chip button { background: none; border: 0; color: inherit; cursor: pointer; padding: 0; font-size: 1rem; line-height: 1; }
+.primary { background: #111827; color: #fff; border: 0; border-radius: 6px; padding: 10px; font-weight: 600; cursor: pointer; }
+.primary:disabled { opacity: .5; cursor: default; }
+.error { color: #b91c1c; font-size: .85rem; margin: 0; }

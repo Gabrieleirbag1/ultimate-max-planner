@@ -1,0 +1,9 @@
+:host { display: block; margin-top: 18px; }
+h3 { display: flex; justify-content: space-between; align-items: center; margin: 12px 0 6px; font-size: .9rem; }
+ul { list-style: none; margin: 0; padding: 0 4px 0 0; display: flex; flex-direction: column; gap: 4px; max-height: 190px; overflow-y: auto; }
+li { display: flex; align-items: center; gap: 2px; border: 1px solid #e5e7eb; border-radius: 6px; }
+.label { flex: 1; min-width: 0; text-align: left; background: none; border: 0; padding: 6px 8px; font: inherit; font-size: .8rem; cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.label:hover { background: #f3f4f6; }
+.icon { background: none; border: 0; cursor: pointer; padding: 4px 6px; color: #6b7280; }
+.icon:hover { color: #111827; }
+.clear { background: none; border: 0; color: #6b7280; font-size: .75rem; cursor: pointer; text-decoration: underline; }

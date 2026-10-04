@@ -1,0 +1,27 @@
+@if (history.favorites().length) {
+  <h3>⭐ Favoris</h3>
+  <ul>
+    @for (e of history.favorites(); track e.id) {
+      <li>
+        <button type="button" class="label" (click)="pick.emit(e)" [title]="label(e)">{{ label(e) }}</button>
+        <button type="button" class="icon" (click)="history.removeFavorite(e.id)" aria-label="Retirer des favoris">✕</button>
+      </li>
+    }
+  </ul>
+}
+
+@if (history.recent().length) {
+  <h3>🕑 Récents <button type="button" class="clear" (click)="history.clearRecent()">Vider</button></h3>
+  <ul>
+    @for (e of history.recent(); track e.id) {
+      <li>
+        <button type="button" class="label" (click)="pick.emit(e)" [title]="label(e)">{{ label(e) }}</button>
+        <button type="button" class="icon" (click)="history.toggleFavorite(e)"
+                [attr.aria-label]="history.isFavorite(e.id) ? 'Retirer des favoris' : 'Ajouter aux favoris'">
+          {{ history.isFavorite(e.id) ? '★' : '☆' }}
+        </button>
+        <button type="button" class="icon" (click)="history.removeRecent(e.id)" aria-label="Supprimer">✕</button>
+      </li>
+    }
+  </ul>
+}

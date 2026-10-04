@@ -1,0 +1,10 @@
+h2 { margin: 0 0 10px; font-size: 1.1rem; text-transform: capitalize; }
+h3 { margin: 0 0 8px; font-size: 1rem; }
+section { border-left: 4px solid; padding-left: 12px; margin-bottom: 18px; }
+article { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; margin-bottom: 8px; }
+header { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; font-size: .9rem; }
+ol { margin: 6px 0 0; padding-left: 18px; font-size: .82rem; color: #374151; }
+small { color: #6b7280; }
+.badge { background: #e0e7ff; color: #3730a3; border-radius: 999px; padding: 2px 8px; font-size: .75rem; }
+.warn { margin: 6px 0 0; font-size: .75rem; color: #92400e; }
+.muted { color: #6b7280; font-size: .9rem; }

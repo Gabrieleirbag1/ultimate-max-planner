@@ -1,0 +1,6 @@
+<div class="legend">
+  @for (o of routes(); track o.name) {
+    <span><i [style.background]="o.color"></i>{{ o.name }}</span>
+  }
+</div>
+<full-calendar [options]="options()" />

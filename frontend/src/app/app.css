@@ -1,0 +1,13 @@
+:host { display: flex; flex-direction: column; height: 100vh; font-family: system-ui, sans-serif; color: #111827; }
+.top { display: flex; align-items: baseline; gap: 14px; padding: 12px 20px; border-bottom: 1px solid #e5e7eb; flex: none; }
+.top h1 { margin: 0; font-size: 1.3rem; }
+.top span { color: #6b7280; font-size: .85rem; }
+/* Each column scrolls on its own so the page never exceeds the viewport. */
+main { flex: 1; min-height: 0; display: grid; grid-template-columns: 300px minmax(0, 1fr) 380px; gap: 20px; padding: 20px; }
+main > * { min-height: 0; overflow-y: auto; padding-right: 6px; }
+.note { color: #6b7280; font-size: .75rem; }
+@media (max-width: 1100px) {
+  :host { height: auto; }
+  main { display: block; }
+  main > * { overflow: visible; margin-bottom: 20px; }
+}

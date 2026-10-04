@@ -1,0 +1,9 @@
+<header class="top"><h1>🚄 TGV MAX Planner</h1><span>Trajets à 0 € · calendrier multi-origines</span></header>
+<main>
+  <aside><app-search-panel /></aside>
+  <section class="center">
+    <app-calendar (daySelected)="state.selectDay($event)" />
+    <p class="note">Disponibilités issues du dataset SNCF Open Data « tgvmax » — places MAX non garanties jusqu'à la réservation.</p>
+  </section>
+  <section class="details"><app-day-details /></section>
+</main>

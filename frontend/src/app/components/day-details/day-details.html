@@ -1,0 +1,34 @@
+@if (state.selectedDate$ | async; as date) {
+  <h2>{{ date | date: 'fullDate' : '' : 'fr' }}</h2>
+  @if (state.details$ | async; as details) {
+    @for (origin of entries(details.itineraries); track origin) {
+      <section [style.border-color]="state.colorOf(origin)">
+        <h3 [style.color]="state.colorOf(origin)">{{ origin }}</h3>
+        @for (it of details.itineraries[origin]; track $index) {
+          <article>
+            <header>
+              <b>{{ it.dep.slice(11) }} → {{ it.arr.slice(11) }}</b>
+              <span>{{ minutes(it.duration_min) }} · {{ it.transfers ? it.transfers + ' corresp.' : 'direct' }}</span>
+              @if (it.overnight) { <span class="badge">🌙 Nuit à {{ it.stay_city }} (départ le {{ it.origin_date }})</span> }
+            </header>
+            @if (it.transfers) {
+              <p class="warn">Chaque tronçon est un vrai train MAX, mais les correspondances se réservent séparément{{ it.legs.length > 1 ? ' (à Paris, prévoir un changement de gare)' : '' }}.</p>
+            }
+            <ol>
+              @for (leg of it.legs; track $index) {
+                <li>{{ leg.dep.slice(5, 10) }} {{ leg.dep.slice(11) }} {{ leg.origin }} → {{ leg.arr.slice(11) }} {{ leg.destination }}
+                  <small>TGV {{ leg.train_no }}</small></li>
+              }
+            </ol>
+          </article>
+        } @empty {
+          <p class="muted">Aucun trajet à 0 € ce jour-là.</p>
+        }
+      </section>
+    }
+  } @else {
+    <p class="muted">Chargement…</p>
+  }
+} @else {
+  <p class="muted">Cliquez sur un jour du calendrier pour voir les horaires.</p>
+}
