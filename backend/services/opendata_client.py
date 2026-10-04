@@ -10,7 +10,7 @@ import requests
 from domain.models import Train
 from domain.planner import make_train
 
-FIELDS = "date,train_no,origine,destination,heure_depart,heure_arrivee"
+FIELDS = "date,train_no,origine,destination,heure_depart,heure_arrivee,od_happy_card"
 
 _cache: dict[tuple[str, str], tuple[float, list[Train]]] = {}
 _lock = threading.Lock()
@@ -18,6 +18,24 @@ _lock = threading.Lock()
 
 class OpenDataError(RuntimeError):
     pass
+
+
+def parse_rows(rows: list[dict]) -> list[Train]:
+    """Keep only genuine 0 EUR (MAX) trains, de-duplicated; every leg of any itinerary comes from here."""
+    trains: dict[tuple, Train] = {}  # the dataset contains repeated records
+    for r in rows:
+        if r.get("od_happy_card") != "OUI":
+            continue  # not available with a MAX pass
+        try:
+            day = date.fromisoformat(r["date"][:10])
+            t = make_train(
+                str(r["train_no"]), r["origine"], r["destination"], day,
+                r["heure_depart"], r["heure_arrivee"],
+            )
+            trains[(t.no, t.origin, t.destination, t.dep)] = t
+        except (KeyError, TypeError, ValueError):
+            continue  # skip malformed record
+    return list(trains.values())
 
 
 def fetch_trains(url: str, date_from: date, date_to: date, ttl: int) -> list[Train]:
@@ -45,18 +63,8 @@ def fetch_trains(url: str, date_from: date, date_to: date, ttl: int) -> list[Tra
     else:
         raise OpenDataError(f"SNCF Open Data indisponible: {last_exc}")
 
-    trains: dict[tuple, Train] = {}  # de-duplicated: the dataset contains repeated records
-    for r in rows:
-        try:
-            day = date.fromisoformat(r["date"][:10])
-            t = make_train(
-                str(r["train_no"]), r["origine"], r["destination"], day,
-                r["heure_depart"], r["heure_arrivee"],
-            )
-            trains[(t.no, t.origin, t.destination, t.dep)] = t
-        except (KeyError, TypeError, ValueError):
-            continue  # skip malformed record
+    trains = parse_rows(rows)
 
     with _lock:
-        _cache[key] = (_time.time(), list(trains.values()))
-    return list(trains.values())
+        _cache[key] = (_time.time(), trains)
+    return trains

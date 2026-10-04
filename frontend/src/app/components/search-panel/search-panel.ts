@@ -1,4 +1,4 @@
-import { Component, OnInit, WritableSignal, inject, signal } from '@angular/core';
+import { Component, OnInit, WritableSignal, inject, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
 import { Subject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
@@ -20,6 +20,7 @@ export class SearchPanel implements OnInit {
   private api = inject(ApiService);
   state = inject(SearchStateService);
   private history = inject(HistoryService);
+  searched = output<void>();
 
   origins = signal<string[]>(['Strasbourg', 'Mulhouse', 'Colmar']);
   hubs = signal<string[]>([]);
@@ -101,5 +102,6 @@ export class SearchPanel implements OnInit {
     };
     this.history.record(query);
     this.state.search(query);
+    this.searched.emit();
   }
 }

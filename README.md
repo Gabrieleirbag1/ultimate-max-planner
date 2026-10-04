@@ -1,4 +1,4 @@
-# TGV MAX Planner
+# ULTIMATE MAX Planner
 
 Calendrier interactif des trajets TGV MAX / MAX JEUNE à 0 €, avec correspondances, nuitée la veille et recherche multi-origines (une couleur par origine).
 

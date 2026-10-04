@@ -18,3 +18,10 @@ input[type=checkbox] { width: auto; }
 .primary { background: #111827; color: #fff; border: 0; border-radius: 6px; padding: 10px; font-weight: 600; cursor: pointer; }
 .primary:disabled { opacity: .5; cursor: default; }
 .error { color: #b91c1c; font-size: .85rem; margin: 0; }
+@media (max-width: 900px) {
+  input, select { font-size: 16px; padding: 11px 10px; }
+  .row button, .swap { min-height: 44px; min-width: 44px; }
+  .chip { font-size: .9rem; padding: 6px 12px; }
+  .chip button { padding: 0 4px; font-size: 1.2rem; }
+  .primary { min-height: 48px; font-size: 1rem; }
+}

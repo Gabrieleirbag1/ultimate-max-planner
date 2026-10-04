@@ -7,3 +7,4 @@ li { display: flex; align-items: center; gap: 2px; border: 1px solid #e5e7eb; bo
 .icon { background: none; border: 0; cursor: pointer; padding: 4px 6px; color: #6b7280; }
 .icon:hover { color: #111827; }
 .clear { background: none; border: 0; color: #6b7280; font-size: .75rem; cursor: pointer; text-decoration: underline; }
+@media (max-width: 900px) { .label { padding: 12px 10px; font-size: .9rem; } .icon { padding: 10px 12px; font-size: 1rem; } }

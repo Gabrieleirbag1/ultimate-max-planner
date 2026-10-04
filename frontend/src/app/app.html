@@ -1,9 +1,17 @@
-<header class="top"><h1>🚄 TGV MAX Planner</h1><span>Trajets à 0 € · calendrier multi-origines</span></header>
-<main>
-  <aside><app-search-panel /></aside>
-  <section class="center">
-    <app-calendar (daySelected)="state.selectDay($event)" />
+<header class="top">
+  <h1><span class="logo">🚄</span> ULTIMATE MAX Planner</h1>
+  <span class="tagline">Trajets à 0 € · calendrier multi-origines</span>
+</header>
+<main [attr.data-tab]="tab()">
+  <aside class="pane search"><app-search-panel (searched)="tab.set('calendar')" /></aside>
+  <section class="pane center">
+    <app-calendar (daySelected)="onDay($event)" />
     <p class="note">Disponibilités issues du dataset SNCF Open Data « tgvmax » — places MAX non garanties jusqu'à la réservation.</p>
   </section>
-  <section class="details"><app-day-details /></section>
+  <section class="pane details"><app-day-details /></section>
 </main>
+<nav class="tabs" aria-label="Navigation">
+  <button type="button" [class.on]="tab() === 'search'" (click)="tab.set('search')"><span>🔎</span>Recherche</button>
+  <button type="button" [class.on]="tab() === 'calendar'" (click)="tab.set('calendar')"><span>📅</span>Calendrier</button>
+  <button type="button" [class.on]="tab() === 'details'" (click)="tab.set('details')"><span>🕒</span>Horaires</button>
+</nav>

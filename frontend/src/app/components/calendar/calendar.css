@@ -2,3 +2,16 @@
 .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; }
 :host ::ng-deep .selected-day { background: #fef9c3 !important; }
 :host ::ng-deep .fc-event { cursor: pointer; font-size: .75rem; }
+:host ::ng-deep .ev-line { display: flex; align-items: center; gap: 4px; padding: 0 3px; overflow: hidden; white-space: nowrap; color: #fff; }
+:host ::ng-deep .ev-text { overflow: hidden; text-overflow: ellipsis; }
+:host ::ng-deep .moon { flex: none; }
+.hint { display: flex; align-items: center; gap: 4px; margin: 0 0 8px; font-size: .78rem; color: #6b7280; }
+@media (max-width: 900px) {
+  :host ::ng-deep .fc .fc-toolbar { flex-wrap: wrap; gap: 6px; }
+  :host ::ng-deep .fc .fc-toolbar-title { font-size: 1.05rem; }
+  :host ::ng-deep .fc .fc-button { padding: 8px 12px; }
+  :host ::ng-deep .fc .fc-daygrid-day-number { padding: 2px 4px; font-size: .75rem; }
+  :host ::ng-deep .fc-event { font-size: .62rem; }
+  :host ::ng-deep .fc .fc-col-header-cell-cushion { font-size: .7rem; padding: 2px; }
+  .legend { gap: 8px 12px; }
+}

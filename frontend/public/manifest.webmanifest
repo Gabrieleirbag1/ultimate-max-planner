@@ -1,0 +1,10 @@
+{
+  "name": "ULTIMATE MAX Planner",
+  "short_name": "MAX Planner",
+  "description": "Trajets TGV MAX à 0 € sur un calendrier",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1e3a8a",
+  "icons": [{ "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}
